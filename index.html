@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <title>LeeCh</title>
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href='https://fonts.googleapis.com/css?family=Exo:400,800' rel='stylesheet' type='text/css'>
+          <script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+          <script src="js/jquery.scrollTo.min.js"></script>
+          	         <script src="js/jquery.parallax-scroll.min.js"></script>
+ <!-- bxSlider Javascript file -->
+<script src="js/jquery.bxslider.min.js"></script>
+<!-- bxSlider CSS file -->
+<link href="js/jquery.bxslider.css" rel="stylesheet" />
+</head>
+<body>
+  <section id="1" class="page bg-holder"  style='background-image:url("photo/bg2.jpg")' data-width="1200" data-height="600">
+    <nav>
+      <a class="brand" href="index.html">LEECHANHYEOK</a>
+      		<ul>
+            <n>
+            <li><a href="#1">HOME</a></li>
+            <li><a href="#2">ABOUT</a></li>
+        <li><a href="#3">PROJECT</a></li>
+        <li><a href="#a5">CONTACT</a></li>
+            </n>
+        <li><a href="http://leechanhyeok.github.io/blog" target="_blank">BLOG</a></li>
+      </ul>
+          <p hreflang="#" id="trigger"><img src="photo/nav.PNG"><img></p>
+      </nav>
+
+
+
+      <nav2>
+        <a  href="#1">TOP</a>
+      </nav2>
+
+</section>
+        <section id="2" class="page2">
+          <p class="menu">ABOUT ME</p>
+          <div class="aboutme">
+            <p>
+
+            2007.03 ~ 2010.02 화홍고 졸업<br/>
+            2010.03 ~ 2016.02 한국외대 졸업<br/><br/>
+
+            </div>
+        </section>
+
+
+        <section id="3" class="page3">
+          <p class="menu">PROJECT</p>
+
+                <ul class="bxslider">
+                    <li><a href="http://leechanhyeok.github.io/blog/jekyll/update/2016/02/23/SmartMirror.html"><img src="photo/p8.jpg" alt="" title="Smart Mirror"></a></li>
+                    <li><img src="photo/p1.jpg" alt="" title="Web Garden"></li>
+                    <li><img src="photo/p2.jpg" alt="" title="Capstone Design - Rfid Robot"></li>
+                    <li><img src="photo/p3.jpg" alt="" title="Vex robotics"></li>
+                    <li><img src="photo/p4.jpg" alt="" title="Raspberry pi and Arduino - Smart fish bowl"></li>
+                    <li><img src="photo/p5.jpg" alt="" title="Raspberry pi and Arduino - homecar tv"></li>
+                    <li><img src="photo/p6.jpg" alt="" title="Project of Motor control - Smart washer"></li>
+                    <li><img src="photo/p7.jpg" alt="" title="Arduino Digital doorlock - selfcom" align="center"></li>
+                
+                </ul>
+
+       
+
+          </section>
+
+
+          <section id="a5" class="page4">
+            <p class="menu">CONTACT</p>
+            <ul>
+            <li><a href="mailto:ranya230@naver.com" target="_blank"><img src="photo/email.png"></a></li>
+            <li><a href="http://www.facebook.com/" target="_blank"><img src="photo/fb.png"></a></li>
+            <li><a href="https://www.instagram.com/leechan14/" target="_blank"><img src="photo/ins.png"></a></li>
+            <li><a href="https://github.com/LeeChanhyeok/" target="_blank"><img src="photo/git.png"></a></li>
+          </ul>
+          </section>
+
+
+
+          <script>
+        		$("document").ready(function(){
+                     
+  			$(window).resize(function(){
+        				wd = $(window);
+
+        				$( ".bg-holder" ).width( wd.width() ).height( wd.height() );
+        				$( ".content" ).each(function(){
+        					$( this ).css( "margin-left", ( $(this).width() / 2 * -1 ) + "px" ).css( "margin-top", ( $(this).height() / 2 * -1 ) + "px" );
+        				});
+
+        			});
+
+        			setTimeout(function(){ $(window).resize() }, 1000);
+
+        			$(".bg-holder").parallaxScroll({
+        				friction: 0.3
+        			});
+
+
+             $('n a').click(function(e){
+          $.scrollTo(this.hash || 0, 1000);
+          e.preventDefault();
+
+        });
+        var aChildren = $("nav li").children(); // find the a children of the list items
+            var aArray = []; // create the empty aArray
+            for (var i=0; i < aChildren.length; i++) {
+                var aChild = aChildren[i];
+                var ahref = $(aChild).attr('href');
+                aArray.push(ahref);
+            } // this for loop fills the aArray with attribute href values
+
+            $(window).scroll(function(){
+                var windowPos = $(window).scrollTop(); // get the offset of the window from the top of page
+                var windowHeight = $(window).height(); // get the height of the window
+                var docHeight = $(document).height();
+
+                for (var i=0; i < aArray.length; i++) {
+                    var theID = aArray[i];
+                    var divPos = $(theID).offset().top; // get the offset of the div from the top of page
+                    var divHeight = $(theID).height(); // get the height of the div in question
+                    if (windowPos >= divPos && windowPos < (divPos + divHeight)) {
+                        $("a[href='" + theID + "']").addClass("nav-active");
+                    } else {
+                        $("a[href='" + theID + "']").removeClass("nav-active");
+                    }
+                }
+
+                if(windowPos + windowHeight == docHeight) {
+                    if (!$("nav li:last-child a").hasClass("nav-active")) {
+                        var navActiveCurrent = $(".nav-active").attr("href");
+                        $("a[href='" + navActiveCurrent + "']").removeClass("nav-active");
+                        $("nav li:last-child a").addClass("nav-active");
+                    }
+                }
+            });
+
+   $(function(){
+       var trigger = $('#trigger');
+       var menu = $('nav ul');
+       $(trigger).on('click',function(e){
+           e.preventDefault();
+           menu.slideToggle();
+       });
+       $(window).resize(function(){
+           var w = $(window).width();
+           if(w>1000&&menu.is(':hidden')){
+               menu.removeAttr('style');
+           }
+       });
+   });     
+$('.bxslider').bxSlider({
+  mode:'horizontal', //default : 'horizontal', options: 'horizontal', 'vertical', 'fade'
+  speed:1000, //default:500 이미지변환 속도
+  auto: false, //default:false 자동 시작
+  captions: true, // 이미지의 title 속성이 노출된다.
+  autoControls: true, //default:false 정지,시작 콘트롤 노출, css 수정이 필요
+});    
+      });
+
+
+
+    </script>
+
+
+</body>
+</html>
